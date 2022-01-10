@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextApiRequest, NextApiResponse } from "next";
-import { WinnerResult } from "../../types/game.types";
-import { winnersData } from "../../services/mocks/topData";
+import { WinnerResult } from "../../src/types/game.types";
+import { winnersData } from "../../src/mocks/topData";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {

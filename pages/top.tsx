@@ -1,10 +1,10 @@
 import React from "react";
 import { useQuery } from "react-query";
 
-import { formatTime } from "../common/date-time.functions";
-import { MenuComponent } from "../components/MenuComponent/MenuComponent";
-import { fetchTop } from "../services/game.service";
-import { WinnerResult } from "../types/game.types";
+import { formatTime } from "../src/common/date-time.functions";
+import { MenuComponent } from "../src/components/MenuComponent/MenuComponent";
+import { fetchTop } from "../src/services/game.service";
+import { WinnerResult } from "../src/types/game.types";
 
 const TopComponent: React.FC = () => {
   const { status, error, data } = useQuery<WinnerResult[], Error>(

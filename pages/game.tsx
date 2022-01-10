@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { CellTypeEnum } from "../common/cell";
+import { CellTypeEnum } from "../src/common/cell";
 import {
   calculateNumbers,
   generateEmptyGameField,
@@ -7,20 +7,20 @@ import {
   getCountMinesForLevel,
   getIndexesById,
   openEmptyCells,
-} from "../common/functions";
+} from "../src/common/functions";
 import {
   DifficultyLevel,
   GameSettings,
   GameState,
   GameStatus,
   WinnerResult,
-} from "../types/game.types";
-import { FieldComponent } from "../components/FieldComponent/FieldComponent";
-import GameOverComponent from "../components/popups/GameOverComponent/GameOverComponent";
-import { NewGameComponent } from "../components/popups/NewGameComponent/NewGameComponent";
-import { UserWinComponent } from "../components/popups/UserWinComponent/UserWinComponent";
-import { StatsComponent } from "../components/StatsComponent/StatsComponent";
-import { MenuComponent } from "../components/MenuComponent/MenuComponent";
+} from "../src/types/game.types";
+import { FieldComponent } from "../src/components/FieldComponent/FieldComponent";
+import GameOverComponent from "../src/components/popups/GameOverComponent/GameOverComponent";
+import { NewGameComponent } from "../src/components/popups/NewGameComponent/NewGameComponent";
+import { UserWinComponent } from "../src/components/popups/UserWinComponent/UserWinComponent";
+import { StatsComponent } from "../src/components/StatsComponent/StatsComponent";
+import { MenuComponent } from "../src/components/MenuComponent/MenuComponent";
 
 export default class Game extends React.Component<{}, GameState> {
   mines: Set<string> = new Set();

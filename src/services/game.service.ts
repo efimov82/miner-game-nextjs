@@ -1,4 +1,5 @@
 import axios from "axios";
+import { QueryKey } from "react-query";
 import { WinnerResult } from "../types/game.types";
 
 const apiClient = axios.create({
@@ -8,16 +9,21 @@ const apiClient = axios.create({
   },
 });
 
+// TODO: find how correct define type
 export type ParamsTop = {
   queryKey: [string, { count: number }];
 };
 
-
 export async function fetchTop(params: any): Promise<WinnerResult[]> {
   const [, { count }] = params.queryKey;
-  const response = await apiClient.get<WinnerResult[]>(`/top?count=${count}`);
 
-  return response.data;
+  if (process.env.NEXT_PUBLIC_USE_MOCKS === "true") {
+    const response = await apiClient.get<WinnerResult[]>(`/top?count=${count}`);
+    return response.data;
+  } else {
+    // use server call
+    return [];
+  }
 }
 
 type ParamsSaveGame = {

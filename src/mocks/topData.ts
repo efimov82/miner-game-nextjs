@@ -1,4 +1,4 @@
-import { WinnerResult } from "../../types/game.types";
+import { WinnerResult } from "../types/game.types";
 
 export const winnersData: WinnerResult[] = [
   {
