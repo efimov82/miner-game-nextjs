@@ -1,0 +1,4 @@
+.filedRow {
+  display: flex;
+  flex-direction: row;
+}

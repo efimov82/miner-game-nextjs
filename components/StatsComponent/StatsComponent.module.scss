@@ -1,0 +1,24 @@
+.stats-wrapper {
+  
+  padding: 10px 0;
+}
+
+.mineImage {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  background-image: url("/images/mine.svg");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.markedMinesImage {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  background-image: url("/images/flag.svg");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}

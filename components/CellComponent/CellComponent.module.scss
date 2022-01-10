@@ -1,0 +1,42 @@
+.cellWrapper {
+  width: 30px;
+  height: 30px;
+  margin: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 3px 3px 1px #ccc;
+  -moz-box-shadow: 3px 3px 1px #ccc;
+  -webkit-box-shadow: 3px 3px 1px #ccc;
+  -khtml-box-shadow: 3px 3px 1px #ccc;
+
+  &.mine {
+    background-color: rgb(255, 215, 215);
+    background-image: url("/images/mine.svg");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.marked {
+    background-color: cornflowerblue;
+    background-image: url("/images/flag.svg");
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &.number {
+    background-color: #f7f2eb;
+    font-size: 18px;
+  }
+
+  &.empty {
+    background-color: aliceblue;
+  }
+
+  &.close {
+    background-color: cornflowerblue;
+  }
+}
