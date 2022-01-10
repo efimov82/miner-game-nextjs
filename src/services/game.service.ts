@@ -17,6 +17,8 @@ export type ParamsTop = {
 export async function fetchTop(params: any): Promise<WinnerResult[]> {
   const [, { count }] = params.queryKey;
 
+  console.log(process.env.NEXT_PUBLIC_USE_MOCKS);
+  
   if (process.env.NEXT_PUBLIC_USE_MOCKS === "true") {
     const response = await apiClient.get<WinnerResult[]>(`/top?count=${count}`);
     return response.data;
