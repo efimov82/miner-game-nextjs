@@ -1,9 +1,8 @@
 import axios from "axios";
-import { QueryKey } from "react-query";
 import { WinnerResult } from "../types/game.types";
 
 const apiClient = axios.create({
-  baseURL: "/api",
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
     "Content-type": "application/json",
   },
@@ -17,15 +16,8 @@ export type ParamsTop = {
 export async function fetchTop(params: any): Promise<WinnerResult[]> {
   const [, { count }] = params.queryKey;
 
-  console.log(process.env.NEXT_PUBLIC_USE_MOCKS);
-  
-  if (process.env.NEXT_PUBLIC_USE_MOCKS === "true") {
-    const response = await apiClient.get<WinnerResult[]>(`/top?count=${count}`);
-    return response.data;
-  } else {
-    // use server call
-    return [];
-  }
+  const response = await apiClient.get<WinnerResult[]>(`/top?count=${count}`);
+  return response.data;
 }
 
 type ParamsSaveGame = {
@@ -46,13 +38,3 @@ export async function saveGameResults(params: ParamsSaveGame) {
 
   return response.data;
 }
-
-// export type Character = {
-//   name: string;
-// };
-
-// function assertIsCharacter(character: any): asserts character is Character {
-//   if (!("name" in character)) {
-//     throw new Error("Not character");
-//   }
-// }
