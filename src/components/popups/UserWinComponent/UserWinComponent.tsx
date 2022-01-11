@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { formatTime } from "../../../common/date-time.functions";
 import { WinnerResult } from "../../../types/game.types";
+import styles from "./UserWinComponent.module.scss";
 
 type UserWinProps = {
   gameResult: WinnerResult;
@@ -63,7 +64,7 @@ export class UserWinComponent extends React.Component<
               <span>
                 <strong>Field:</strong> {this.props.gameResult.fieldSize},
               </span>
-              <span className="mineImage" />
+              <span className={styles.mineImage} />
               <span>X {this.props.gameResult.countMines}</span>
             </p>
             <p>
