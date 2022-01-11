@@ -1,11 +1,14 @@
 import React from "react";
 import { useQuery } from "react-query";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { formatTime } from "../src/common/date-time.functions";
 import { MenuComponent } from "../src/components/MenuComponent/MenuComponent";
 import { fetchTop } from "../src/services/game.service";
 import { WinnerResult } from "../src/types/game.types";
 
 export default function TopComponent() {
+  const { t } = useTranslation("rules");
   const { status, error, data } = useQuery<WinnerResult[], Error>(
     ["top-query", { count: 20 }],
     fetchTop
@@ -24,11 +27,6 @@ export default function TopComponent() {
 
   return data ? (
     <>
-      <div className="row m-2">
-        <div className="col">
-          <MenuComponent />
-        </div>
-      </div>
       <div className="container">
         <h1>Top 20</h1>
         <table className="table">
@@ -68,3 +66,9 @@ export default function TopComponent() {
     return content;
   }
 }
+
+export const getServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string, ["menu"])),
+  },
+});

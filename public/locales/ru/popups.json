@@ -1,0 +1,20 @@
+{
+  "title-new-game": "Новая игра",
+  "field-size": "Размер поля",
+  "difficulty": "Сложность",
+  "difficulty-low": "Низкая",
+  "difficulty-medium": "Средняя",
+  "difficulty-high": "Высокая",
+  "difficulty-hardcore": "Минер-подрывник",
+  "button-start": "Старт",
+  "game-over-title": "БУУУУМ...",
+  "game-over-body": "Вы проиграли... Попробуйте снова!",
+  "btn-open-all-mines": "Показать мины",
+  "btn-play-again": "Новая игра",
+  "user-win-title": "Победа!",
+  "user-win-body": "Вы разменировали поле",
+  "user-win-time": "Время",
+  "user-win-nickname": "Имя",
+  "user-win-nickname-placeholder": "Ваше имя или ник",
+  "btn-save-results": "Сохранить"
+}

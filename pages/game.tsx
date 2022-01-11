@@ -1,4 +1,8 @@
 import React, { ReactNode } from "react";
+
+import { withTranslation, WithTranslation } from "react-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { CellTypeEnum } from "../src/common/cell";
 import {
   calculateNumbers,
@@ -17,12 +21,13 @@ import {
 } from "../src/types/game.types";
 import { FieldComponent } from "../src/components/FieldComponent/FieldComponent";
 import GameOverComponent from "../src/components/popups/GameOverComponent/GameOverComponent";
-import { NewGameComponent } from "../src/components/popups/NewGameComponent/NewGameComponent";
-import { UserWinComponent } from "../src/components/popups/UserWinComponent/UserWinComponent";
+import NewGameComponent from "../src/components/popups/NewGameComponent/NewGameComponent";
+import UserWinComponent from "../src/components/popups/UserWinComponent/UserWinComponent";
 import { StatsComponent } from "../src/components/StatsComponent/StatsComponent";
-import { MenuComponent } from "../src/components/MenuComponent/MenuComponent";
 
-export default class Game extends React.Component<{}, GameState> {
+interface GameProps extends WithTranslation {}
+
+class Game extends React.Component<GameProps, GameState> {
   mines: Set<string> = new Set();
   markedMines: Set<string> = new Set();
   timer: number = 0;
@@ -33,7 +38,7 @@ export default class Game extends React.Component<{}, GameState> {
     difficultyLevel: DifficultyLevel.low,
   };
 
-  constructor(props: {}, state: GameState) {
+  constructor(props: GameProps, state: GameState) {
     super(props);
     this.state = {
       field: null,
@@ -169,17 +174,11 @@ export default class Game extends React.Component<{}, GameState> {
   }
 
   protected checkAllMinesMarked(): boolean {
-    for(let cell of this.mines) {
+    for (let cell of this.mines) {
       if (!this.markedMines.has(cell)) {
         return false;
       }
     }
-    // this.mines.forEach((cell) => {
-    //   console.log(cell, this.markedMines.has(cell));
-    //   if (!this.markedMines.has(cell)) {
-    //     return false;
-    //   }
-    // });
 
     return true;
   }
@@ -267,14 +266,10 @@ export default class Game extends React.Component<{}, GameState> {
 
   public render() {
     const popUp: ReactNode = this.getPopupContent();
+    const { t } = this.props;
 
     return (
       <>
-        <div className="row m-2">
-          <div className="col">
-            <MenuComponent />
-          </div>
-        </div>
         <div className="row m-2">
           <div className="col">
             {popUp}
@@ -298,7 +293,7 @@ export default class Game extends React.Component<{}, GameState> {
                   className="btn btn-primary"
                   onClick={this.onNewGameClick}
                 >
-                  New game
+                  {t("new-game")}
                 </button>
               </div>
             </div>
@@ -308,3 +303,15 @@ export default class Game extends React.Component<{}, GameState> {
     );
   }
 }
+
+export const getServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string, [
+      "menu",
+      "game",
+      "popups",
+    ])),
+  },
+});
+
+export default withTranslation("game")(Game);

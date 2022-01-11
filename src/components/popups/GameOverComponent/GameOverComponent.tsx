@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { useTranslation } from "next-i18next";
+import styles from "./GameOverComponent.module.scss";
 
 type GameOverComponentProps = {
   onNewGameClick: () => void;
@@ -8,7 +10,7 @@ type GameOverComponentProps = {
 
 export default function GameOverComponent(props: GameOverComponentProps) {
   const [show, setShow] = useState(true);
-
+  const { t } = useTranslation("popups");
   const handleClose = () => setShow(false);
 
   const handleShowMines = () => {
@@ -17,17 +19,22 @@ export default function GameOverComponent(props: GameOverComponentProps) {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal className={styles.body} show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Game over</Modal.Title>
+        <Modal.Title>
+          <div className="modal-title">
+            <div className={styles.mine}> </div>
+            <div className={styles.title}>{t("game-over-title")}</div>
+          </div>
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>Sorry, you&apos;re lose... Let&apos;s play again?</Modal.Body>
+      <Modal.Body>{t("game-over-body")}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleShowMines}>
-          Open all mines
+          {t("btn-open-all-mines")}
         </Button>
         <Button variant="primary" onClick={props.onNewGameClick}>
-          Play again
+          {t("btn-play-again")}
         </Button>
       </Modal.Footer>
     </Modal>

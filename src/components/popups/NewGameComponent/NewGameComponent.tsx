@@ -1,31 +1,34 @@
-import React from "react";
+import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { withTranslation, WithTranslation } from "react-i18next";
 import { DifficultyLevel, GameSettings } from "../../../types/game.types";
-
-type NewGameComponentProps = {
+import styles from "./NewGameComponent.module.scss";
+interface NewGameComponentProps extends WithTranslation {
   settings: GameSettings;
   onNewGameClick: (settings: GameSettings) => void;
   onNewGameModalClose: () => void;
-};
+}
 
-type NewGameComponentState = {
+interface NewGameComponentProps extends WithTranslation {
+  settings: GameSettings;
+  onNewGameClick: (settings: GameSettings) => void;
+  onNewGameModalClose: () => void;
+}
+
+interface NewGameComponentState {
   show: boolean;
   gameSettings: GameSettings;
-};
+}
 
-export class NewGameComponent extends React.Component<
+class NewGameComponent extends Component<
   NewGameComponentProps,
   NewGameComponentState
 > {
   protected sizes = ["10x10", "15x15", "20x20", "25x25", "30x30", "40x40"];
-
-  constructor(props: NewGameComponentProps, state: NewGameComponentState) {
-    super(props);
-    this.state = {
-      show: true,
-      gameSettings: props.settings,
-    };
-  }
+  state = {
+    show: true,
+    gameSettings: this.props.settings,
+  };
 
   handleClose = () => this.props.onNewGameModalClose();
 
@@ -66,16 +69,17 @@ export class NewGameComponent extends React.Component<
   };
 
   generateDifficultyLevelsSelect() {
+    const { t } = this.props;
     return (
       <select
         name="fieldSize"
         value={this.state.gameSettings.difficultyLevel}
         onChange={(e) => this.handleChangeLevel(e)}
       >
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-        <option value="hardcore">Hardcore</option>
+        <option value="low">{t("difficulty-low")}</option>
+        <option value="medium">{t("difficulty-medium")}</option>
+        <option value="high">{t("difficulty-high")}</option>
+        <option value="hardcore">{t("difficulty-hardcore")}</option>
       </select>
     );
   }
@@ -100,24 +104,31 @@ export class NewGameComponent extends React.Component<
   }
 
   render() {
+    const { t } = this.props;
     return (
-      <Modal show={this.state.show} onHide={this.handleClose}>
+      <Modal className={styles.body} show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create new game</Modal.Title>
+          <Modal.Title>{t("title-new-game")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Field size: {this.genarateGameSizesSelect()}</p>
-          <p>Difficulty: {this.generateDifficultyLevelsSelect()}</p>
+          <p>
+            {t("field-size")}: {this.genarateGameSizesSelect()}
+          </p>
+          <p>
+            {t("difficulty")}: {this.generateDifficultyLevelsSelect()}
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button
             variant="primary"
             onClick={() => this.props.onNewGameClick(this.state.gameSettings)}
           >
-            Start
+            {t("button-start")}
           </Button>
         </Modal.Footer>
       </Modal>
     );
   }
 }
+
+export default withTranslation("popups")(NewGameComponent);

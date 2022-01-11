@@ -1,2 +1,2 @@
 export * from "./GameOverComponent/GameOverComponent";
-export { UserWinComponent } from "./UserWinComponent/UserWinComponent";
+export * from "./UserWinComponent/UserWinComponent";

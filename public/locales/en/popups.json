@@ -1,0 +1,20 @@
+{
+  "title-new-game": "Create new game",
+  "field-size": "Field size",
+  "difficulty": "Difficulty",
+  "difficulty-low": "Low",
+  "difficulty-medium": "Medium",
+  "difficulty-high": "High",
+  "difficulty-hardcore": "Hardcore",
+  "button-start": "Start",
+  "game-over-title": "Game over",
+  "game-over-body": "Sorry, you're lose... Let's play again?",
+  "btn-open-all-mines": "Open All Mines",
+  "btn-play-again": "Play Again",
+  "user-win-title": "Congratulations!",
+  "user-win-body": "You're win.",
+  "user-win-time": "Time",
+  "user-win-nickname": "Nickname",
+  "user-win-nickname-placeholder": "Your nickname",
+  "btn-save-results": "Save results"
+}

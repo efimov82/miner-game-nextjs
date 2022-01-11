@@ -1,0 +1,24 @@
+.body {
+  background-color: #a80909;
+  opacity: 0.9;
+}
+
+.modal-title {
+  display: flex;
+  background-color: #ffa4a4;
+}
+
+.mine {
+  display: inline-block;
+
+  min-width: 80px;
+  min-height: 35px;
+  background-image: url("/images/mine.svg");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.title {
+  display: inline-block;
+}

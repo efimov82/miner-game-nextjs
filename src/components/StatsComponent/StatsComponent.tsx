@@ -23,7 +23,6 @@ export function StatsComponent(props: StatsProps) {
         </span>
       </div>
       <div className="col-4 col-sm-2 d-flex">
-        <span className="d-none d-sm-block">Time: </span>
         <strong>{formatTime(props.gameTime)}</strong>
       </div>
     </div>
