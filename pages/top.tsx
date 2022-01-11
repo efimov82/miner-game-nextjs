@@ -7,7 +7,7 @@ import { WinnerResult } from "../src/types/game.types";
 
 export default function TopComponent() {
   const { status, error, data } = useQuery<WinnerResult[], Error>(
-    ["top-query", { count: 2 }],
+    ["top-query", { count: 20 }],
     fetchTop
   );
 
