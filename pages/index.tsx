@@ -5,7 +5,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
 
 function Home() {
-  const { t } = useTranslation("rules");
+  const { t } = useTranslation(["rules", "menu"]);
 
   return (
     <>
