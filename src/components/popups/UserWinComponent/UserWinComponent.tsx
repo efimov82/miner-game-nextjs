@@ -16,19 +16,15 @@ export default function UserWinComponent(props: UserWinProps) {
   const [nickname, setNickname] = useState("");
   const { t } = useTranslation("popups");
 
-  const handleClose = () => {
-    setShow(false);
-  };
-
   const handleNewGame = () => {
     setShow(false);
-    this.props.onNewGameClick();
+    props.onNewGameClick();
   };
 
   const saveRusultClick = () => {
-    if (this.state.nickName) {
-      this.props.onSaveRusultClick(this.state.nickName);
-      this.setState({ show: false });
+    if (nickname) {
+      props.onSaveRusultClick(nickname);
+      setShow(false)
     }
   };
 
