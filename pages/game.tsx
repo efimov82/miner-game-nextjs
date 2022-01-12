@@ -304,16 +304,6 @@ class Game extends React.Component<GameProps, GameState> {
   }
 }
 
-// export const getServerSideProps = async ({ locale }) => ({
-//   props: {
-//     ...(await serverSideTranslations(locale as string, [
-//       "menu",
-//       "game",
-//       "popups",
-//     ])),
-//   },
-// });
-
 export const getStaticProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, ["menu", "game", "popups"])),

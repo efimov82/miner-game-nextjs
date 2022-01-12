@@ -4,17 +4,14 @@ import { useTranslation } from "next-i18next";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { formatTime } from "../src/common/date-time.functions";
-import { MenuComponent } from "../src/components/MenuComponent/MenuComponent";
 import { fetchTop } from "../src/services/game.service";
 import { WinnerResult } from "../src/types/game.types";
-
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, ["menu"])),
   },
 });
-
 
 function TopComponent() {
   const { t } = useTranslation("rules");
@@ -76,9 +73,4 @@ function TopComponent() {
   }
 }
 
-export default withTranslation(["menu"])(TopComponent); // 
-// export const getServerSideProps = async ({ locale }) => ({
-//   props: {
-//     ...(await serverSideTranslations(locale as string, ["menu"])),
-//   },
-// });
+export default withTranslation(["menu"])(TopComponent);

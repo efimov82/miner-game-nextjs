@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
-import { withTranslation, WithTranslation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
-// import '../i18n';
 
 function Home() {
   const { t } = useTranslation("rules");
@@ -33,23 +32,10 @@ function Home() {
   );
 }
 
-// export const getServerSideProps = async ({ locale }) => ({
-//   props: {
-//     ...(await serverSideTranslations(locale as string, ["rules", "menu"])),
-//   },
-// });
-
 export const getStaticProps = async ({ locale }) => ({
-  // props: {
-  //   messages: {
-  //     ...require(`../public/locales/${locale}/rules.json`),
-  //     ...require(`../public/locales/${locale}/menu.json`),
-  //   },
-  //   now: new Date().getTime(),
-  // },
   props: {
     ...(await serverSideTranslations(locale, ["rules", "menu"])),
   },
 });
 
-export default withTranslation(["rules", "menu"])(Home); //
+export default withTranslation(["rules", "menu"])(Home);
