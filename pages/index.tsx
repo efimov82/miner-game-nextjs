@@ -40,13 +40,15 @@ function Home() {
 // });
 
 export const getStaticProps = async ({ locale }) => ({
+  // props: {
+  //   messages: {
+  //     ...require(`../public/locales/${locale}/rules.json`),
+  //     ...require(`../public/locales/${locale}/menu.json`),
+  //   },
+  //   now: new Date().getTime(),
+  // },
   props: {
-    messages: {
-      ...require(`../public/locales/${locale}/rules.json`),
-      ...require(`../public/locales/${locale}/menu.json`),
-    },
-    now: new Date().getTime(),
-    //...(await serverSideTranslations(locale, ["rules", "menu"])),
+    ...(await serverSideTranslations(locale, ["rules", "menu"])),
   },
 });
 
