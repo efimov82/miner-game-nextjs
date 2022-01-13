@@ -1,0 +1,12 @@
+{
+    "supportsES6": true,
+    "fileNaming": "kebab-case",
+    "ngVersion": "7.2",
+    "generateApis": false,
+    "generateApiTests": false,
+    "generateApiDocumentation": false,
+    "generateModelTests": false,
+    "generateModelDocumentation": false,
+    "generateSupportingFiles": false,
+    "enumPropertyNaming": "UPPERCASE"
+}

@@ -26,11 +26,3 @@ export enum GameStatus {
   userWin = "win",
   userLose = "lose",
 }
-
-export interface WinnerResult {
-  fieldSize: string;
-  countMines: number;
-  gameTime: number;
-  nickName: string;
-  timestamp: number;
-}

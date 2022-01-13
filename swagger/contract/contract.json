@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/winners/top": {
+      "get": {
+        "operationId": "WinnersController_getTop",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of Top-20",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Winner"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "WinnersController_postTop",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWinnerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Miner API",
+    "description": "The miner game API",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "miner",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "Winner": {
+        "type": "object",
+        "properties": {
+          "fieldSize": {
+            "type": "string",
+            "example": "10x10",
+            "description": "Field size"
+          },
+          "gameTime": {
+            "type": "number",
+            "example": "3210",
+            "description": "Game play time in seconds"
+          },
+          "nickName": {
+            "type": "string",
+            "example": "Mark90",
+            "description": "Player nickname"
+          },
+          "timestamp": {
+            "type": "number",
+            "example": "1640020255097",
+            "description": "Timestamp"
+          },
+          "countMines": {
+            "type": "number",
+            "example": "23",
+            "description": "Count mines on field"
+          }
+        },
+        "required": [
+          "fieldSize",
+          "gameTime",
+          "nickName",
+          "timestamp",
+          "countMines"
+        ]
+      },
+      "CreateWinnerDto": {
+        "type": "object",
+        "properties": {
+          "fieldSize": {
+            "type": "string",
+            "example": "10x10",
+            "description": "Field size"
+          },
+          "gameTime": {
+            "type": "number",
+            "example": "3210",
+            "description": "Game play time in seconds"
+          },
+          "nickName": {
+            "type": "string",
+            "example": "Mark90",
+            "description": "Player nickname"
+          },
+          "countMines": {
+            "type": "number",
+            "example": "23",
+            "description": "Count mines on field"
+          }
+        },
+        "required": [
+          "fieldSize",
+          "gameTime",
+          "nickName",
+          "countMines"
+        ]
+      }
+    }
+  }
+}

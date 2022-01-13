@@ -1,6 +1,6 @@
-import { WinnerResult } from "../types/game.types";
+import { Winner } from "../models";
 
-export const winnersData: WinnerResult[] = [
+export const winnersData: Winner[] = [
   {
     fieldSize: "10x10",
     countMines: 10,

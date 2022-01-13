@@ -5,7 +5,7 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { formatTime } from "../src/common/date-time.functions";
 import { fetchTop } from "../src/services/game.service";
-import { WinnerResult } from "../src/types/game.types";
+import { Winner } from "../src/models";
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
@@ -15,7 +15,7 @@ export const getStaticProps = async ({ locale }) => ({
 
 function TopComponent() {
   const { t } = useTranslation("rules");
-  const { status, error, data } = useQuery<WinnerResult[], Error>(
+  const { status, error, data } = useQuery<Winner[], Error>(
     ["top-query", { count: 20 }],
     fetchTop
   );
@@ -41,6 +41,7 @@ function TopComponent() {
               <th scope="col">#</th>
               <th scope="col">Nick</th>
               <th scope="col">Field</th>
+              <th scope="col">Mines</th>
               <th scope="col">Time</th>
               <th scope="col">Date</th>
             </tr>
@@ -51,25 +52,32 @@ function TopComponent() {
     </>
   ) : null;
 
-  function formatTopResults(data: WinnerResult[]) {
+  function formatTopResults(data: Winner[]) {
     const content = data.map((winner, index) => {
-      const date = new Date(winner.timestamp);
-      const dateFormated = `${date.getDate()}-${
-        date.getMonth() + 1
-      }-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-
       return (
         <tr key={index}>
           <th scope="row">{index + 1}</th>
           <td>{winner.nickName}</td>
           <td>{winner.fieldSize}</td>
+          <td>{winner.countMines}</td>
           <td>{formatTime(winner.gameTime)}</td>
-          <td>{dateFormated}</td>
+          <td>{formatDate(winner.timestamp)}</td>
         </tr>
       );
     });
 
     return content;
+  }
+
+  function formatDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear() - 2000;
+    const month = date.getMonth() + 1;
+    const monthStr = month < 10 ? "0" + month : month;
+
+    const dateFormated = `${date.getDate()}/${monthStr}/${year} ${date.getHours()}:${date.getMinutes()}`;
+
+    return dateFormated;
   }
 }
 

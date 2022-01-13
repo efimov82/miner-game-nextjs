@@ -17,13 +17,14 @@ import {
   GameSettings,
   GameState,
   GameStatus,
-  WinnerResult,
 } from "../src/types/game.types";
 import { FieldComponent } from "../src/components/FieldComponent/FieldComponent";
 import GameOverComponent from "../src/components/popups/GameOverComponent/GameOverComponent";
 import NewGameComponent from "../src/components/popups/NewGameComponent/NewGameComponent";
 import UserWinComponent from "../src/components/popups/UserWinComponent/UserWinComponent";
 import { StatsComponent } from "../src/components/StatsComponent/StatsComponent";
+import { Winner } from "../src/models";
+import { saveGameResult } from "../src/services/game.service";
 
 interface GameProps extends WithTranslation {}
 
@@ -242,14 +243,14 @@ class Game extends React.Component<GameProps, GameState> {
   }
 
   protected saveGameResult(nickName: string) {
-    const result = this.getGameResult();
-    result.nickName = nickName;
+    const data = this.getGameResult(nickName);
 
-    console.log(result);
+    const res = saveGameResult(data);
+    console.log(res);
     // useQuery('');
   }
 
-  protected getGameResult(): WinnerResult {
+  protected getGameResult(nickName = ""): Winner {
     if (!this.state.field) {
       throw Error("Error get game result");
     }
@@ -259,8 +260,8 @@ class Game extends React.Component<GameProps, GameState> {
       fieldSize: fieldSize,
       countMines: this.mines.size,
       gameTime: this.state.gameTimeSeconds,
-      nickName: "",
       timestamp: 0,
+      nickName,
     };
   }
 

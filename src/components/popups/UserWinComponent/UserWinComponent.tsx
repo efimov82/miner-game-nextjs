@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { Button, Modal } from "react-bootstrap";
 import { formatTime } from "../../../common/date-time.functions";
-import { WinnerResult } from "../../../types/game.types";
 import styles from "./UserWinComponent.module.scss";
+import { Winner } from "../../../models";
 
 interface UserWinProps {
-  gameResult: WinnerResult;
+  gameResult: Winner;
   onNewGameClick: () => void;
   onSaveRusultClick: (nickName: string) => void;
 }

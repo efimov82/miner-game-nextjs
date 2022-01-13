@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-models": "node_modules/@openapitools/openapi-generator-cli/bin/openapi-generator generate -i swagger/contract/contract.json -Dmodels --model-package 'generated' -g typescript-angular -c swagger/config/swagger.json -o src/models --skip-validate-spec"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -26,6 +27,7 @@
     "@types/react": "17.0.38",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",
+    "@openapitools/openapi-generator-cli": "1.0.12-4.3.0",
     "typescript": "4.5.4"
   }
 }
