@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextApiRequest, NextApiResponse } from "next";
-import { WinnerResult } from "../../src/types/game.types";
 import { winnersData } from "../../src/mocks/topData";
+import { Winner } from "../../src/models";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -16,9 +16,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-function getTopData(req: NextApiRequest, res: NextApiResponse<WinnerResult[]>) {
+function getTopData(req: NextApiRequest, res: NextApiResponse<Winner[]>) {
   let sortedData = winnersData.sort(
-    (a: WinnerResult, b: WinnerResult): number => {
+    (a: Winner, b: Winner): number => {
       return b.timestamp > a.timestamp ? 1 : -1;
     }
   );
