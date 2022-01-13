@@ -5,7 +5,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First copy file .env.local.exapmle -> .env.local
 Change values if need it (default use mocks API).
 
-
 Run the development server:
 
 ```bash
