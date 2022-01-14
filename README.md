@@ -14,3 +14,5 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+Online [demo](https://miner-game-alpha.vercel.app/)

@@ -270,7 +270,7 @@ class Game extends React.Component<GameProps, GameState> {
     const { t } = this.props;
 
     return (
-      <>
+      <div className="container">
         <div className="row m-2">
           <div className="col">
             {popUp}
@@ -300,7 +300,7 @@ class Game extends React.Component<GameProps, GameState> {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

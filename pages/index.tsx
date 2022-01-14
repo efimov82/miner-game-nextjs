@@ -8,11 +8,11 @@ function Home() {
   const { t } = useTranslation(["rules", "menu"]);
 
   return (
-    <>
+    <div className="container">
       <div className="row m-2">
         <div className="col">
           <div className="row">
-            <div className="col col-sm-8">
+            <div className="col col-sm-10">
               <h1>{t("title")}</h1>
               <p>{t("description")}</p>
 
@@ -28,7 +28,7 @@ function Home() {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

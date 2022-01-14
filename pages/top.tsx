@@ -10,12 +10,12 @@ import { LoaderComponent } from "../src/components/LoaderComponent/LoaderCompone
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["menu"])),
+    ...(await serverSideTranslations(locale, ["menu", "top"])),
   },
 });
 
 function TopComponent() {
-  const { t } = useTranslation("rules");
+  const { t } = useTranslation(["top"]);
   const { status, error, data } = useQuery<Winner[], Error>(
     ["top-query", { count: 20 }],
     fetchTop
@@ -33,24 +33,24 @@ function TopComponent() {
   }
 
   return data ? (
-    <>
-      <div className="container">
-        <h1>Top 20</h1>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nick</th>
-              <th scope="col">Field</th>
-              <th scope="col">Mines</th>
-              <th scope="col">Time</th>
-              <th scope="col" className="d-none">Date</th>
-            </tr>
-          </thead>
-          <tbody>{formatTopResults(data)}</tbody>
-        </table>
-      </div>
-    </>
+    <div className="container">
+      <h1>{t("title")}</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">{t("nickname")}</th>
+            <th scope="col">{t("field")}</th>
+            <th scope="col">{t("mines")}</th>
+            <th scope="col">{t("time")}</th>
+            <th scope="col" className="d-none">
+              {t("date")}
+            </th>
+          </tr>
+        </thead>
+        <tbody>{formatTopResults(data)}</tbody>
+      </table>
+    </div>
   ) : null;
 
   function formatTopResults(data: Winner[]) {
@@ -69,7 +69,6 @@ function TopComponent() {
 
     return content;
   }
-
 }
 
-export default withTranslation(["menu"])(TopComponent);
+export default withTranslation(["menu", "top"])(TopComponent);
