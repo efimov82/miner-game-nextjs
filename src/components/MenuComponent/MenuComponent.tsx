@@ -1,25 +1,32 @@
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { LangSwitcherComponent } from "../LangSwitcherComponent/LangSwitcherComponent";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 export function MenuComponent(props: {}) {
   const { t } = useTranslation("menu");
 
   return (
-    <div className="row m-2">
-      <div className="col">
-        <div className="row menu-wrapper">
-          <div className="col-3 col-sm-3 m-2">
-            <Link href="/">{t("rules")}</Link>
-          </div>
-          <div className="col-3 col-sm-3 m-2">
-            <Link href="/top">{t("top20")}</Link>
-          </div>
-          <div className="col-3 col-sm-3 m-2">
-            <LangSwitcherComponent />
-          </div>
-        </div>
-      </div>
-    </div>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand href="#home">Minesweeper</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Link href="/" passHref>
+              <Nav.Link>{t("rules")}</Nav.Link>
+            </Link>
+            <Link href="/top" passHref>
+              <Nav.Link>{t("top20")}</Nav.Link>
+            </Link>
+          </Nav>
+          <Nav>
+            <Nav.Link eventKey={2} href="#memes">
+              <LangSwitcherComponent />
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }

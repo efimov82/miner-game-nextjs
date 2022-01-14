@@ -1,11 +1,12 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { useTranslation } from "next-i18next";
-import { withTranslation, WithTranslation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { formatTime } from "../src/common/date-time.functions";
+import { formatDate, formatTime } from "../src/common/date-time.functions";
 import { fetchTop } from "../src/services/game.service";
 import { Winner } from "../src/models";
+import { LoaderComponent } from "../src/components/LoaderComponent/LoaderComponent";
 
 export const getStaticProps = async ({ locale }) => ({
   props: {
@@ -22,8 +23,8 @@ function TopComponent() {
 
   if (status === "loading") {
     return (
-      <div>
-        <p>loading...</p>
+      <div className="loader d-flex p-50 justify-content-center">
+        <LoaderComponent />
       </div>
     );
   }
@@ -69,16 +70,6 @@ function TopComponent() {
     return content;
   }
 
-  function formatDate(timestamp: number): string {
-    const date = new Date(timestamp);
-    const year = date.getFullYear() - 2000;
-    const month = date.getMonth() + 1;
-    const monthStr = month < 10 ? "0" + month : month;
-
-    const dateFormated = `${date.getDate()}/${monthStr}/${year} ${date.getHours()}:${date.getMinutes()}`;
-
-    return dateFormated;
-  }
 }
 
 export default withTranslation(["menu"])(TopComponent);

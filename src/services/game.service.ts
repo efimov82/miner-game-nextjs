@@ -13,6 +13,12 @@ export type ParamsTop = {
   queryKey: [string, { count: number }];
 };
 
+/**
+ * Fetch top-20
+ *
+ * @param params queryKey: [string, { count: number }]
+ * @returns Winner[]
+ */
 export async function fetchTop(params: any): Promise<Winner[]> {
   const [, { count }] = params.queryKey;
 
@@ -20,12 +26,14 @@ export async function fetchTop(params: any): Promise<Winner[]> {
   return response.data;
 }
 
-type ParamsSaveGame = {
-  queryKey: [string, CreateWinnerDto];
-};
-
-export async function saveGameResult(data: CreateWinnerDto) {
+/**
+ * Save game result
+ *
+ * @param data CreateWinnerDto
+ * @returns Winner
+ */
+export async function saveGameResult(data: CreateWinnerDto): Promise<Winner> {
   const response = await apiClient.post(`/winners/top`, data);
 
-  return response.data;
+  return response.data as Winner;
 }
