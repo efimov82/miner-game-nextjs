@@ -44,7 +44,7 @@ function TopComponent() {
               <th scope="col">Field</th>
               <th scope="col">Mines</th>
               <th scope="col">Time</th>
-              <th scope="col">Date</th>
+              <th scope="col" className="d-none">Date</th>
             </tr>
           </thead>
           <tbody>{formatTopResults(data)}</tbody>
@@ -62,7 +62,7 @@ function TopComponent() {
           <td>{winner.fieldSize}</td>
           <td>{winner.countMines}</td>
           <td>{formatTime(winner.gameTime)}</td>
-          <td>{formatDate(winner.timestamp)}</td>
+          <td className="d-none">{formatDate(winner.timestamp)}</td>
         </tr>
       );
     });
