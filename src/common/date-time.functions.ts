@@ -9,11 +9,11 @@ export function formatTime(seconds: number): string {
   const minutes = _formatValue(date.getUTCMinutes());
   const secs = _formatValue(date.getSeconds());
 
-  return `${hours}:${minutes}:${secs}`;
+  return `${hours !== "00" ? hours + ":" : ""}${minutes}:${secs}`;
 }
 
 /**
- * 
+ *
  * @param timestamp number
  * @returns Date formated 'dd/mm/YY mm:ss'
  */

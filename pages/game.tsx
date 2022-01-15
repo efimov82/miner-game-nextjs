@@ -24,7 +24,7 @@ import NewGameComponent from "../src/components/popups/NewGameComponent/NewGameC
 import UserWinComponent from "../src/components/popups/UserWinComponent/UserWinComponent";
 import { StatsComponent } from "../src/components/StatsComponent/StatsComponent";
 import { Winner } from "../src/models";
-import { saveGameResult } from "../src/services/game.service";
+import { fetchWinnersList, saveGameResult } from "../src/services/game.service";
 
 interface GameProps extends WithTranslation {}
 
@@ -46,6 +46,7 @@ class Game extends React.Component<GameProps, GameState> {
       gameStatus: GameStatus.empty,
       showModalNewGame: true,
       gameTimeSeconds: 0,
+      winnersList: null,
     };
 
     this.onNewGameClick = this.onNewGameClick.bind(this);
@@ -82,11 +83,24 @@ class Game extends React.Component<GameProps, GameState> {
     }
   }
 
-  public startNewGame(settings?: GameSettings): void {
+  public async startNewGame(settings?: GameSettings) {
     if (settings) {
       this.settings = settings;
     }
 
+    this.createGame();
+    const fieldSize = `${this.settings.rows}x${this.settings.cells}`;
+    const winnersList = await fetchWinnersList(fieldSize, this.mines.size);
+    
+    this.setState({ winnersList });
+
+    clearInterval(this.timer);
+    this.timer = window.setInterval(() => {
+      this.setState({ gameTimeSeconds: this.state.gameTimeSeconds + 1 });
+    }, 1000);
+  }
+
+  protected createGame() {
     const fieldData = generateEmptyGameField(
       this.settings.rows,
       this.settings.cells
@@ -102,11 +116,6 @@ class Game extends React.Component<GameProps, GameState> {
       gameTimeSeconds: 0,
       showModalNewGame: false,
     });
-
-    clearInterval(this.timer);
-    this.timer = window.setInterval(() => {
-      this.setState({ gameTimeSeconds: this.state.gameTimeSeconds + 1 });
-    }, 1000);
   }
 
   public onCellClick(cellId: string): void {
@@ -247,7 +256,6 @@ class Game extends React.Component<GameProps, GameState> {
 
     const res = saveGameResult(data);
     console.log(res);
-    // useQuery('');
   }
 
   protected getGameResult(nickName = ""): Winner {
@@ -279,6 +287,7 @@ class Game extends React.Component<GameProps, GameState> {
                 countMines={this.mines.size}
                 markedMines={this.markedMines.size}
                 gameTime={this.state.gameTimeSeconds}
+                winnersList={this.state.winnersList}
               />
             </div>
             <div className="row mb-3">

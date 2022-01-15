@@ -1,4 +1,5 @@
 import { Cell } from "../common/cell";
+import { Winner } from "../models";
 
 export enum DifficultyLevel {
   low = "low",
@@ -18,6 +19,7 @@ export type GameState = {
   gameStatus: GameStatus;
   gameTimeSeconds: number;
   showModalNewGame: boolean;
+  winnersList: Winner[]
 };
 
 export enum GameStatus {

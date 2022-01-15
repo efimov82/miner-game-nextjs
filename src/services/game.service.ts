@@ -27,6 +27,18 @@ export async function fetchTop(params: any): Promise<Winner[]> {
 }
 
 /**
+ * 
+ * @param params queryKey: [string, { fieldSize: string, countMines: number }]
+ * @returns Winner[]
+ */
+export async function fetchWinnersList(fieldSize: string, countMines: number): Promise<Winner[]> {
+  // const [, { fieldSize, countMines }] = params.queryKey;
+
+  const response = await apiClient.get<Winner[]>(`/winners/list?fieldSize=${fieldSize}&countMines=${countMines}`);
+  return response.data;
+}
+
+/**
  * Save game result
  *
  * @param data CreateWinnerDto
