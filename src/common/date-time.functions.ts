@@ -5,11 +5,6 @@
  */
 export function formatTime(seconds: number): string {
   const date = new Date(seconds * 1000);
-  let hh = date.getUTCHours();
-  let mm = date.getUTCMinutes();
-  let ss = date.getSeconds();
-  // If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time
-  // if (hh > 12) {hh = hh % 12;}
   const hours = _formatValue(date.getUTCHours());
   const minutes = _formatValue(date.getUTCMinutes());
   const secs = _formatValue(date.getSeconds());
@@ -30,9 +25,7 @@ export function formatDate(timestamp: number): string {
   const hour = _formatValue(date.getHours());
   const mins = _formatValue(date.getMinutes());
 
-  const dateFormated = `${day}/${month}/${year} ${hour}:${mins}`;
-
-  return dateFormated;
+  return `${day}/${month}/${year} ${hour}:${mins}`;
 }
 
 function _formatValue(value: number): string {

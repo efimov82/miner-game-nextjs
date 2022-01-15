@@ -32,10 +32,10 @@ export function getCountMinesForLevel(settings: GameSettings): number {
       coefficient = 4;
       break;
     default:
-      throw new Error('Wrong DifficultyLevel value');
-    }
+      throw new Error("Wrong DifficultyLevel value");
+  }
 
-    return Math.round(cellsCount / coefficient);
+  return Math.round(cellsCount / coefficient);
 }
 
 export function generateMines(
@@ -96,8 +96,7 @@ export function openEmptyCells(
 ) {
   fields[rowIndex][cellIndex].open();
 
-  const cellsAround = collectCellsAround(fields, rowIndex, cellIndex);
-  cellsAround.forEach((cell) => {
+  collectCellsAround(fields, rowIndex, cellIndex).forEach((cell) => {
     if (fields[cell.x][cell.y].minesAround === 0) {
       openEmptyCells(fields, cell.x, cell.y);
     }
