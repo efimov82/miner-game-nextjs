@@ -88,8 +88,8 @@ class Game extends React.Component<GameProps, GameState> {
     if (typeof Audio != "undefined") {
       this.audio.click = new Audio("/sounds/click.wav");
       this.audio.mark = new Audio("/sounds/mark.wav");
-      this.audio.startGame = new Audio("/sounds/userWin.wav");
-      this.audio.userWin = new Audio("/sounds/userWin2.mp3");
+      this.audio.startGame = new Audio("/sounds/startGame.wav");
+      this.audio.userWin = new Audio("/sounds/userWin.wav");
       this.audio.userLose = new Audio("/sounds/userLose.wav");
     }
   }
