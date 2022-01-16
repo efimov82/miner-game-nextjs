@@ -128,15 +128,16 @@ class Game extends React.Component<GameProps, GameState> {
       this.settings = settings;
     }
 
+    if (!this.soundMute) {
+      this.audio.startGame.play();
+    }
+
     this.createGame();
     const fieldSize = `${this.settings.rows}x${this.settings.cells}`;
     const winnersList = await fetchWinnersList(fieldSize, this.mines.size);
 
     this.setState({ winnersList });
 
-    if (!this.soundMute) {
-      this.audio.startGame.play();
-    }
     clearInterval(this.timer);
     this.timer = window.setInterval(() => {
       this.setState({ gameTimeSeconds: this.state.gameTimeSeconds + 1 });
