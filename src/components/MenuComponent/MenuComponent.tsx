@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { LangSwitcherComponent } from "../LangSwitcherComponent/LangSwitcherComponent";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { SoundSwitcherComponent } from "../SoundSwitcherComponent/SoundSwitcherComponent";
 
 export function MenuComponent(props: {}) {
   const { t } = useTranslation("menu");
@@ -21,7 +22,10 @@ export function MenuComponent(props: {}) {
             </Link>
           </Nav>
           <Nav>
-            <Nav.Link eventKey={2} href="#memes">
+            <Nav.Link>
+              <SoundSwitcherComponent />
+            </Nav.Link>
+            <Nav.Link>
               <LangSwitcherComponent />
             </Nav.Link>
           </Nav>

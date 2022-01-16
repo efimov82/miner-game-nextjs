@@ -25,18 +25,30 @@ import UserWinComponent from "../src/components/popups/UserWinComponent/UserWinC
 import { StatsComponent } from "../src/components/StatsComponent/StatsComponent";
 import { Winner } from "../src/models";
 import { fetchWinnersList, saveGameResult } from "../src/services/game.service";
+import AppContext from "../src/AppContext";
 
 interface GameProps extends WithTranslation {}
 
 class Game extends React.Component<GameProps, GameState> {
+  static contextType = AppContext;
   mines: Set<string> = new Set();
   markedMines: Set<string> = new Set();
   timer: number = 0;
   gameTimeSeconds = 0;
+  soundMute = false;
+
   settings: GameSettings = {
     rows: 10,
     cells: 10,
     difficultyLevel: DifficultyLevel.low,
+  };
+
+  audio: {
+    click: HTMLAudioElement;
+    mark: HTMLAudioElement;
+    startGame: HTMLAudioElement;
+    userWin: HTMLAudioElement;
+    userLose: HTMLAudioElement;
   };
 
   constructor(props: GameProps, state: GameState) {
@@ -49,6 +61,8 @@ class Game extends React.Component<GameProps, GameState> {
       winnersList: null,
     };
 
+    this.initAudio();
+
     this.onNewGameClick = this.onNewGameClick.bind(this);
     this.onCellClick = this.onCellClick.bind(this);
     this.onCellMarked = this.onCellMarked.bind(this);
@@ -60,6 +74,32 @@ class Game extends React.Component<GameProps, GameState> {
 
     this.handleNewGameClick = this.handleNewGameClick.bind(this);
     this.handleModalNewGameClose = this.handleModalNewGameClose.bind(this);
+  }
+
+  protected initAudio(): void {
+    this.audio = {
+      click: null,
+      mark: null,
+      startGame: null,
+      userWin: null,
+      userLose: null,
+    };
+
+    if (typeof Audio != "undefined") {
+      this.audio.click = new Audio("/sounds/click.wav");
+      this.audio.mark = new Audio("/sounds/mark.wav");
+      this.audio.startGame = new Audio("/sounds/userWin.wav");
+      this.audio.userWin = new Audio("/sounds/userWin2.mp3");
+      this.audio.userLose = new Audio("/sounds/userLose.wav");
+    }
+  }
+
+  componentDidUpdate(
+    prevProps: Readonly<GameProps>,
+    prevState: Readonly<GameState>,
+    snapshot?: any
+  ): void {
+    this.soundMute = this.context.state.soundMute;
   }
 
   componentWillUnmount(): void {
@@ -91,9 +131,12 @@ class Game extends React.Component<GameProps, GameState> {
     this.createGame();
     const fieldSize = `${this.settings.rows}x${this.settings.cells}`;
     const winnersList = await fetchWinnersList(fieldSize, this.mines.size);
-    
+
     this.setState({ winnersList });
 
+    if (!this.soundMute) {
+      this.audio.startGame.play();
+    }
     clearInterval(this.timer);
     this.timer = window.setInterval(() => {
       this.setState({ gameTimeSeconds: this.state.gameTimeSeconds + 1 });
@@ -146,6 +189,10 @@ class Game extends React.Component<GameProps, GameState> {
         this.gameOver();
     }
 
+    if (!this.soundMute) {
+      this.audio.click.play();
+    }
+
     newFields[rowIndex][cellIndex].open();
     this.setState({ field: { data: newFields } });
   }
@@ -169,6 +216,9 @@ class Game extends React.Component<GameProps, GameState> {
       }
 
       this.markedMines.add(cellId);
+      if (!this.soundMute) {
+        this.audio.mark.play();
+      }
     } else {
       this.markedMines.delete(cellId);
     }
@@ -179,6 +229,11 @@ class Game extends React.Component<GameProps, GameState> {
       this.setState({
         gameStatus: GameStatus.userWin,
       });
+
+      if (!this.soundMute) {
+        this.audio.userWin.play();
+      }
+
       clearInterval(this.timer);
     }
   }
@@ -197,6 +252,11 @@ class Game extends React.Component<GameProps, GameState> {
     this.setState({
       gameStatus: GameStatus.userLose,
     });
+
+    if (!this.soundMute) {
+      this.audio.userLose.play();
+    }
+
     clearInterval(this.timer);
   }
 
@@ -314,7 +374,7 @@ class Game extends React.Component<GameProps, GameState> {
   }
 }
 
-export const getStaticProps = async ({ locale }) => ({
+export const getServerSideProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, ["menu", "game", "popups"])),
   },

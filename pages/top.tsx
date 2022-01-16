@@ -7,13 +7,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { formatDate, formatTime } from "../src/common/date-time.functions";
 import { fetchTop } from "../src/services/game.service";
 import { Winner } from "../src/models";
-import { LoaderComponent } from "../src/components/LoaderComponent/LoaderComponent";
-
-export const getStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ["menu", "top"])),
-  },
-});
+import { Placeholder } from "react-bootstrap";
 
 function TopComponent() {
   const { t } = useTranslation(["top"]);
@@ -100,5 +94,10 @@ function TopComponent() {
     return res;
   }
 }
+export const getServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["menu", "top"])),
+  },
+});
 
 export default withTranslation(["menu", "top"])(TopComponent);
