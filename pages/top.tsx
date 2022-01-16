@@ -94,7 +94,7 @@ function TopComponent() {
     return res;
   }
 }
-export const getServerSideProps = async ({ locale }) => ({
+export const getStaticProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, ["menu", "top"])),
   },

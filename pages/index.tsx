@@ -32,7 +32,7 @@ function Home() {
   );
 }
 
-export const getServerSideProps = async ({ locale }) => ({
+export const getStaticProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, ["rules", "menu"])),
   },
